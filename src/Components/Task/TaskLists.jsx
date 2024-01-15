@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { FaStar } from "react-icons/fa";
 const TaskLists = ({ tasks, onEdit, onDelete, onFav }) => {
-  console.log(tasks);
   return (
     <>
       <div className="overflow-auto">

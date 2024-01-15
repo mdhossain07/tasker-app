@@ -1,4 +1,9 @@
-const SearchTask = () => {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+const SearchTask = ({ onSearch }) => {
+  const [searchText, setSearchText] = useState("");
+
   return (
     <>
       <form>
@@ -9,10 +14,13 @@ const SearchTask = () => {
               id="search-dropdown"
               className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
               placeholder="Search Task"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
               required
             />
             <button
-              type="submit"
+              onClick={() => onSearch(searchText)}
+              type="button"
               className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
             >
               <svg
