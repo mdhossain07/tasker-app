@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchTask from "./SearchTask";
 import TaskActions from "./TaskActions";
 import AddTaskModal from "./AddTaskModal";
@@ -23,7 +23,9 @@ const TaskBoard = () => {
 
   const handleAddEditTask = (newTask, isAdd) => {
     if (isAdd) {
-      setTasks([...tasks, newTask]);
+      const updatedTask = [...tasks, newTask];
+      setTasks(updatedTask);
+      localStorage.setItem("key", JSON.stringify(updatedTask));
     } else {
       setTasks(
         tasks.map((task) => {
@@ -46,6 +48,7 @@ const TaskBoard = () => {
   const handleDeleteTask = (taskId) => {
     const reaminingTask = tasks.filter((task) => task.id !== taskId);
     setTasks(reaminingTask);
+    localStorage.setItem("key", JSON.stringify(reaminingTask));
   };
 
   const handleClose = () => {
@@ -75,6 +78,11 @@ const TaskBoard = () => {
     );
     setTasks(filteredData);
   };
+
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("key") || []);
+    setTasks(storedTasks);
+  }, []);
 
   return (
     <>
